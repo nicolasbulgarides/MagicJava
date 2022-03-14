@@ -53,8 +53,4 @@ public class ProjectThreeController {
         }
     }
 
-    public void processLoadedCelestial(CelestialImageFinder celestialImageFinder) {
-        this.celestialImageFinder = celestialImageFinder;
-        this.projectThreeTeacher.addCelestialDecoration(this.celestialImageFinder);
-    }
 }

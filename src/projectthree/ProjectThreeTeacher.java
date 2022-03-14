@@ -19,12 +19,12 @@ public class ProjectThreeTeacher extends Pane {
     private Pane mountainPane;
     private Timer starTrailTimer;
     private Timer starShimmerTimer;
-    private ShimmerView starTrailTask;
-    private ShimmerView starShimmerTask;
+    private ShimmerViewTeacher starTrailTask;
+    private ShimmerViewTeacher starShimmerTask;
     private ImageView castleView;
     private Pane cloudPane;
-    private CreamCloud cloudPane2;
-    private CreamCloud cloudPane3;
+    private CreamCloudTeacher cloudPane2;
+    private CreamCloudTeacher cloudPane3;
 
 
     public ProjectThreeTeacher(){
@@ -36,7 +36,7 @@ public class ProjectThreeTeacher extends Pane {
 
     private void addBackDrop() {
         ImageView backdropView = new ImageView(new Image("/assets/projectthree/black1.jpg"));
-        JavaSquire.resizeImage(backdropView,1920,1080);
+        JavaSquire.resizeImage(backdropView,Settings.getScreenWidth(),Settings.getScreenHeight());
         this.getChildren().add(backdropView);
     }
 
@@ -52,7 +52,7 @@ public class ProjectThreeTeacher extends Pane {
         startrailView.setTranslateY(-800);
         startrailView.setTranslateX(-600);
         this.getChildren().add(startrailView);
-        this.starTrailTask = new ShimmerView(this.startrailView,this.celestialImageFinder.getAllStarTrails(),true);
+        this.starTrailTask = new ShimmerViewTeacher(this.startrailView,this.celestialImageFinder.getAllStarTrails(),true);
         this.starTrailTimer = new Timer();
         this.starTrailTimer.schedule(starTrailTask,0,100);
     }
@@ -93,15 +93,15 @@ public class ProjectThreeTeacher extends Pane {
         this.castleView.setFitWidth(600);
         this.castleView.setPreserveRatio(true);
         this.castleView.setLayoutX((Settings.getScreenWidth() / 2) - (castleView.getFitWidth() / 2));
-        this.castleView.setLayoutY((Settings.getScreenHeight() / 2 ) - (castleView.getFitWidth() / 2));
+        this.castleView.setLayoutY((Settings.getScreenHeight() / 2 ) - (castleView.getFitHeight() / 2));
         this.getChildren().add(castleView);
     }
     private void addCreamCloud() {
-        this.cloudPane = new CreamCloud(0.33,  -200, -200);
+        this.cloudPane = new CreamCloudTeacher(0.33,  -200, -200);
         this.getChildren().add(this.cloudPane);
-        this.cloudPane2 = new CreamCloud(0.45,  -350, -500);
+        this.cloudPane2 = new CreamCloudTeacher(0.45,  -350, -500);
         this.getChildren().add(this.cloudPane2);
-        this.cloudPane3 = new CreamCloud(0.38,  -250, -400);
+        this.cloudPane3 = new CreamCloudTeacher(0.38,  -250, -400);
         this.getChildren().add(this.cloudPane3);
     }
 

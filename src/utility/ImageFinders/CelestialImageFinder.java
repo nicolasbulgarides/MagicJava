@@ -1,10 +1,8 @@
 package utility.ImageFinders;
 
-import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import projectthree.ProjectThreeController;
-import projectthree.ShimmerView;
+import projectthree.ShimmerViewTeacher;
 import utility.JavaSquire;
 import utility.Settings;
 
@@ -28,7 +26,7 @@ public class CelestialImageFinder implements Runnable {
     public class StarListAndTimer {
         public Timer starTimer;
         public ArrayList<ImageView> starList;
-        public ShimmerView shimmerViewTask;
+        public ShimmerViewTeacher shimmerViewTask;
     }
     public enum StarTrailEnum {
         FUSCHIA, GOLD, IRIDESCENT, ORANGE, RAINBOW
@@ -36,8 +34,6 @@ public class CelestialImageFinder implements Runnable {
     private HashMap<GalaxyEnum, Image> galaxyImageMap;
     private HashMap<StarTrailEnum, Image> starTrailMap;
     private ArrayList<Image> allStarTrails;
-    private ProjectThreeController projectThreeController;
-    private boolean runningProject = false;
     private ArrayList<Image> starShapeList;
     private Random random;
 
@@ -47,16 +43,18 @@ public class CelestialImageFinder implements Runnable {
 
     }
 
-    public CelestialImageFinder(ProjectThreeController projectThreeController) {
-        this.projectThreeController = projectThreeController;
-        this.runningProject = true;
-    }
-
     private void initializeCollections() {
         this.galaxyImageMap = new HashMap<GalaxyEnum, Image>();
         this.starTrailMap = new HashMap<StarTrailEnum, Image>();
         this.allStarTrails = new ArrayList<Image>();
         this.starShapeList = new ArrayList<Image>();
+    }
+
+    @Override
+    public void run() {
+        loadGalaxyMap();
+        loadStarTrailMap();
+        loadStarShapes();
     }
 
     private void loadGalaxyMap() {
@@ -91,23 +89,6 @@ public class CelestialImageFinder implements Runnable {
         return this.galaxyImageMap.get(galaxyEnum);
     }
 
-
-    public ImageView getJupiterImageView(int height){
-        Image jupiter = new Image("/assets/celestial/Jupiter.gif");
-        ImageView jupiterView = new ImageView(jupiter);
-        jupiterView.setFitHeight(height);
-        jupiterView.setPreserveRatio(true);
-        return jupiterView;
-    }
-
-    @Override
-    public void run() {
-        initializeCollections();
-        loadGalaxyMap();
-        loadStarTrailMap();
-        loadStarShapes();
-    }
-
     private void loadStarShapes() {
         this.starShapeList.add(new Image("/assets/shapes/stars/star1.png"));
         this.starShapeList.add(new Image("/assets/shapes/stars/star2.png"));
@@ -118,25 +99,6 @@ public class CelestialImageFinder implements Runnable {
 
     public ArrayList<Image> getAllStarTrails(){
         return this.allStarTrails;
-    }
-
-    public ImageView getLotsOfRandomStars(TextureImageFinder textureImageFinder, int xPosition, int yPosition, int size) {
-        this.textureImageFinder = textureImageFinder;
-        Image starClipImage = getRandomStarShape();
-        ImageView starViewClip = new ImageView(starClipImage);
-        JavaSquire.resizeImage(starViewClip,size,size);
-
-        Image gemstone = this.textureImageFinder.getGemstoneByEnum(TextureImageFinder.GemstoneEnum.DIAMOND);
-        ImageView diamondView = new ImageView(gemstone);
-        JavaSquire.resizeImage(diamondView,size,size);
-        diamondView.setClip(starViewClip);
-        ShimmerView shimmerView = new ShimmerView(diamondView,this.textureImageFinder.allGemstoneImages);
-        Timer timer = new Timer();
-        timer.schedule(shimmerView,0,60);
-        diamondView.setLayoutX(xPosition);
-        diamondView.setLayoutY(yPosition);
-
-        return diamondView;
     }
 
     public StarListAndTimer getLotsOfRandomStars(TextureImageFinder textureImageFinder, int numberOfStars) {
@@ -150,7 +112,7 @@ public class CelestialImageFinder implements Runnable {
         }
 
 
-        ShimmerView shimmerView = new ShimmerView(randomStars,this.textureImageFinder, textureImageFinder.allGemstoneImages);
+        ShimmerViewTeacher shimmerView = new ShimmerViewTeacher(randomStars,this.textureImageFinder, textureImageFinder.allGemstoneImages);
         Timer timer = new Timer();
         timer.schedule(shimmerView,0,60);
 

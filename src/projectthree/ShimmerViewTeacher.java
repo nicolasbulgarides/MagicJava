@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.TimerTask;
 
-public class ShimmerView extends TimerTask {
+public class ShimmerViewTeacher extends TimerTask {
 
     private ArrayList<ImageView> toggledViews;
     private ArrayList<Image> textureImages;
@@ -16,19 +16,19 @@ public class ShimmerView extends TimerTask {
     private Random random;
     private boolean rotateMe;
     boolean pluralList = false;
-    public ShimmerView(ImageView toggledImage) {
+    public ShimmerViewTeacher(ImageView toggledImage) {
         this.random = new Random();
         this.toggledView = toggledImage;
         this.textureImages = new ArrayList<Image>();
         addTextureImages();
     }
-    public ShimmerView(ImageView toggledImage, ArrayList<Image> shimmerImages) {
+    public ShimmerViewTeacher(ImageView toggledImage, ArrayList<Image> shimmerImages) {
         this.random = new Random();
         this.toggledView = toggledImage;
         this.textureImages = shimmerImages;
     }
 
-    public ShimmerView(ImageView toggledImage, ArrayList<Image> shimmerImages, boolean rotateMe) {
+    public ShimmerViewTeacher(ImageView toggledImage, ArrayList<Image> shimmerImages, boolean rotateMe) {
         this.random = new Random();
         this.toggledView = toggledImage;
         this.textureImages = shimmerImages;
@@ -36,7 +36,7 @@ public class ShimmerView extends TimerTask {
 
     }
 
-    public ShimmerView(ArrayList<ImageView> toggledImageViews, TextureImageFinder textureImageFinder, ArrayList<Image> shimmerImages) {
+    public ShimmerViewTeacher(ArrayList<ImageView> toggledImageViews, TextureImageFinder textureImageFinder, ArrayList<Image> shimmerImages) {
         this.random = new Random();
         this.pluralList = true;
         this.toggledViews = toggledImageViews;
